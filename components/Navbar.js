@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   AiOutlineShoppingCart, AiFillCloseCircle,
   AiOutlinePlusCircle,
@@ -17,7 +17,7 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
     let signdata = localStorage.getItem('login')
     setStatus(signdata)
   })
-  const toogleCart = () => {
+  const toogleCart = useCallback(() => {
     if (ref.current.classList.contains('translate-x-full')) {
       ref.current.classList.remove('translate-x-full')
       ref.current.classList.add('translate-x-0')
@@ -26,7 +26,7 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
       ref.current.classList.remove('translate-x-0')
       ref.current.classList.add('translate-x-full')
     }
-  }
+  })
   const ref = useRef()
 
   const logouthandler = () => {

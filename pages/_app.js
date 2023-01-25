@@ -1,7 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
+// import Navbar from '../components/Navbar'
 import '../styles/globals.css'
+import { Roboto } from '@next/font/google';
+import dynamic from "next/dynamic"
+const roboto = Roboto({
+  weight: '900',
+  subsets: ['latin'],
+  display: 'optional'
+})
+const Navbar = dynamic(() => import("../components/Navbar"), {
+  loading: () => <p>Loding.....</p>,
+  ssr: true
+})
+
+
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({})
   const [subTotal, setSubTotal] = useState(0)
@@ -19,17 +32,17 @@ export default function App({ Component, pageProps }) {
     }
   }, [])
 
-  const saveCart = (myCart) => {
+  const saveCart = useCallback((myCart) => {
     localStorage.setItem('cart', JSON.stringify(myCart))
     let subt = 0;
     let keys = Object.keys(myCart);
-    for (let i = 0; i < keys.length; i++) {
-      subt = myCart[keys[i]]['price'] * myCart[keys[i]].qty
+    for (const element of keys) {
+      subt = myCart[element]['price'] * myCart[element].qty
     }
     setSubTotal(subt)
-  }
+  })
 
-  const addToCart = (itemCode, qty, price, name, variant, size) => {
+  const addToCart = useCallback((itemCode, qty, price, name, variant, size) => {
     let newCart = cart;
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty + qty
@@ -40,9 +53,9 @@ export default function App({ Component, pageProps }) {
     }
     setCart(newCart)
     saveCart(newCart)
-  }
+  })
 
-  const removeFromCart = (itemCode, qty, price, name, variant, size) => {
+  const removeFromCart = useCallback((itemCode, qty, price, name, variant, size) => {
     let newCart = cart;
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty - qty
@@ -53,19 +66,22 @@ export default function App({ Component, pageProps }) {
     }
     setCart(newCart)
     saveCart(newCart)
-  }
+  })
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setCart({})
     saveCart({})
-  }
-// console.log("store",store)
+  })
+  // console.log("store",store)
 
   return <>
-    <Navbar key={subTotal} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
-  
-    <Component {...pageProps} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
-   
-    <Footer />
+    <main className={roboto.className} >
+
+      <Navbar key={subTotal} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+
+      <Component {...pageProps} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+
+      <Footer />
+    </main>
   </>
 }
