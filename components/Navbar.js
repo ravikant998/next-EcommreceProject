@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -8,6 +9,7 @@ import {
 } from 'react-icons/ai';
 import { MdAccountCircle } from 'react-icons/md'
 
+const Search = dynamic(() => import('../components/Search'))
 
 const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
 
@@ -48,7 +50,7 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
           <Link href='/mugs'><li>Mugs</li></Link>
         </ul>
       </div>
-
+     <Search className=''/>
       <div className=" cursor-pointer cart absolute right-0 top-4 mx-5 flex">
 
         {/* <Link href={'/signup'} className="mx-3">Signup</Link> */}

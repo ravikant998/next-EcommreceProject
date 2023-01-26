@@ -3,15 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import dynamic from "next/dynamic";
-// import Sidebar from '../components/sidebar'
 
-const Sidebar = dynamic(() => import('../components/sidebar').then((mod)=>mod.Sidebar),{
-  ssr:false,
-  loading: () => 'Loading...',
-})
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -67,13 +59,11 @@ const Login = () => {
       alert("Inavlid username or password");
       
     }
-
   }
 
   return (
     <>
     
-    <Sidebar/>
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>

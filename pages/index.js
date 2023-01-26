@@ -2,10 +2,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
+import dynamic from 'next/dynamic'
+import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
+const TestData = dynamic(() => import("../components/TestData"), {
+  loading: () => <p>Loding.....</p>
+ 
+})
 export default function Home() {
+  const [showMap, setShowMap] = useState(false);
   return (
     <>
       <Head>
@@ -18,6 +25,11 @@ export default function Home() {
       <div>
       <Image src='/55.jpg' width={500} height={100} alt='image'/>
       <section className="text-gray-600 body-font">
+   {
+    showMap &&<TestData/>
+   }
+<button onClick={()=>setShowMap(true)}>Submit</button>
+
   <div className="container px-5 py-24 mx-auto">
     <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
       <h1>Website: {process.env.mysiteUrl}</h1>
