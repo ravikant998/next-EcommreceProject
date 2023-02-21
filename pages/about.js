@@ -7,6 +7,7 @@ const About = () => {
     <a>About Us</a>
   </Link>
   )
+  
 }
 
 export default About
