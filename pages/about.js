@@ -6,8 +6,7 @@ const About = () => {
     <Link href="/about" legacyBehavior>
     <a>About Us</a>
   </Link>
-  )
-  
+  ) 
 }
 
 export default About

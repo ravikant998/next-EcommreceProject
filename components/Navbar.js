@@ -31,6 +31,7 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
   })
   const ref = useRef()
 
+  
   const logouthandler = () => {
     Cookies.remove("loggedin");
     localStorage.removeItem('login')
