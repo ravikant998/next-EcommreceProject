@@ -31,7 +31,7 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
   })
   const ref = useRef()
 
-  
+
   const logouthandler = () => {
     Cookies.remove("loggedin");
     localStorage.removeItem('login')
@@ -67,7 +67,6 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
           </>
         }
       </div>
-
 
       <div ref={ref} className={`first-letter:w-72 h-[100vh] sidecart absolute top-0 right-0 bg-pink-100 
       p-10 transform transition-transform  ${Object.keys(cart).length !== 0 ? 'translate-x-0' : 'translate-x-full'}`} >
