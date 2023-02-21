@@ -38,7 +38,7 @@ const schema = yup.object().shape({
 
 const Signup = () => {
   const router = useRouter()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   let attachmentfile = useRef(null);
 
   const {
@@ -54,10 +54,10 @@ const Signup = () => {
     // dispatch(signupuser(data)
    
 
-    // let signinData = JSON.parse(localStorage.getItem("signup")) || [];
-    // localStorage.setItem("signup", JSON.stringify([...signinData, { id: signinData.length + 1, ...data }]))
+    let signinData = JSON.parse(localStorage.getItem("signup")) || [];
+    localStorage.setItem("signup", JSON.stringify([...signinData, { id: signinData.length + 1, ...data }]))
 
-    // router.push('/login')
+    router.push('/login')
   }
   return (
     <>

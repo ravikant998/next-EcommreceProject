@@ -1,7 +1,7 @@
 
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import Link from 'next/link';
-const Checkout = ({ cart, subTotal }) => {
+const Checkout = ({ cart, subTotal,addToCart }) => {
   return (
     <div className="container px-2 sm:mx-auto">
       <h1 className="font-bold text-3xl my-8 text-center">Checkout</h1>

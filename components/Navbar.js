@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -8,11 +7,12 @@ import {
   AiOutlineMinusCircle, AiOutlineLogout
 } from 'react-icons/ai';
 import { MdAccountCircle } from 'react-icons/md'
-
-const Search = dynamic(() => import('../components/Search'))
+import SearchProduct from "./SearchProduct";
+import Cookies from 'js-cookie'
 
 const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
 
+  // console.log("showCategory>>>",showCategory)
   const [status, setStatus] = useState()
   // console.log("status", status)
   useEffect(() => {
@@ -32,6 +32,7 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
   const ref = useRef()
 
   const logouthandler = () => {
+    Cookies.remove("loggedin");
     localStorage.removeItem('login')
     setStatus(false)
   }
@@ -44,23 +45,26 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
           <Image src='/logo.png' width={50} height={50} alt='logo' /></Link>
       </div>
       <div className='nav'>
-        <ul className="flex items-center space-x-6 font-bold md:text-md">
-          <Link href='/tshirts'><li>Tshirts</li></Link>
-          <Link href='/hoodies'> <li>Hoodies</li></Link>
-          <Link href='/mugs'><li>Mugs</li></Link>
+    
+        <ul className="absolute top-5 text-black  text-center w-full font-bold">
+
+          <SearchProduct />
+       
         </ul>
       </div>
-     <Search className=''/>
-      <div className=" cursor-pointer cart absolute right-0 top-4 mx-5 flex">
 
-        {/* <Link href={'/signup'} className="mx-3">Signup</Link> */}
+      <div className=" cursor-pointer cart absolute right-0 top-4 mx-5 flex">
         {
           !status ? (
 
+
             <Link href={'/login'}><MdAccountCircle className="text-xl md:text-2xl mx-3" /></Link>
-          ) : <span onClick={logouthandler} className='mx-3' ><AiOutlineLogout className=" text-xl md:text-2xl mx-3" /></span>
+          ) : 
+          <>
+          <span onClick={logouthandler} className='mx-3' ><AiOutlineLogout className=" text-xl md:text-2xl mx-3" /></span>
+          <AiOutlineShoppingCart onClick={toogleCart} className="text-xl md:text-2xl" />
+          </>
         }
-        <AiOutlineShoppingCart onClick={toogleCart} className="text-xl md:text-2xl" />
       </div>
 
 

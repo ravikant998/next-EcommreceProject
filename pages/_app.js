@@ -4,6 +4,10 @@ import Footer from '../components/Footer'
 import '../styles/globals.css'
 import { Roboto } from '@next/font/google';
 import dynamic from "next/dynamic"
+import { Provider } from 'react-redux'
+import { store } from '../store/index'
+import Header from '../components/Header';
+
 const roboto = Roboto({
   weight: '900',
   subsets: ['latin'],
@@ -13,7 +17,6 @@ const Navbar = dynamic(() => import("../components/Navbar"), {
   loading: () => <p>Loding.....</p>,
   ssr: true
 })
-
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({})
@@ -77,11 +80,14 @@ export default function App({ Component, pageProps }) {
   return <>
     <main className={roboto.className} >
 
+      <Provider store={store}>
       <Navbar key={subTotal} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+<Header/>
 
-      <Component {...pageProps} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+        <Component {...pageProps} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
 
       <Footer />
+      </Provider>
     </main>
   </>
 }

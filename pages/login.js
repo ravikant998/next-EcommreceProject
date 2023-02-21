@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import Cookies from 'js-cookie'
 
 const schema = yup.object().shape({
   email: yup
@@ -28,26 +30,18 @@ const Login = () => {
 
   const {
     register,
-    handleSubmit,
+    // handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  // useEffect(() => {
-  //   // if(JSON.parse(localStorage.getItem("signup"))){
-  //   //  router.push('/')
-  //   // }
-  // }, [])
-
   const submithnadler = (e) => {
     e.preventDefault()
-    // // console.log("data",data)
-    //     dispatch(signinuser(data))
-    //     router.push('/')
+    Cookies.set("loggedin", true);
     let user = JSON.parse(localStorage.getItem("signup"))
     let x = true
-    console.log("x", x)
+    // console.log("x", x)
     user?.forEach(element => {
       if (input.username == element.username && input.password == element.password) {
         localStorage.setItem("login", true)
@@ -71,7 +65,7 @@ const Login = () => {
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in in to your account</h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             {/* Or */}
-            <Link href="signup" className="font-medium text-indigo-600 hover:text-indigo-500">Sign Up</Link>
+            <Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">Sign Up</Link>
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={submithnadler}>
