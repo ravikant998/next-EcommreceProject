@@ -20,7 +20,7 @@ const Navbar = dynamic(() => import("../components/Navbar"), {
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({})
-  const [subTotal, setSubTotal] = useState(0)
+  const [subTotal, setSubTotal] = useState()
 
   useEffect(() => {
     try {
@@ -58,7 +58,7 @@ export default function App({ Component, pageProps }) {
     saveCart(newCart)
   })
 
-  const removeFromCart = useCallback((itemCode, qty, price, name, variant, size) => {
+  const removeFromCart = useCallback((itemCode, qty) => {
     let newCart = cart;
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty - qty
@@ -81,12 +81,22 @@ export default function App({ Component, pageProps }) {
     <main className={roboto.className} >
 
       <Provider store={store}>
-      <Navbar key={subTotal} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
-<Header/>
+        <Navbar key={subTotal}
+          addToCart={addToCart}
+          cart={cart}
+          removeFromCart={removeFromCart}
+          clearCart={clearCart}
+          subTotal={subTotal} />
+        <Header />
 
-        <Component {...pageProps} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+        <Component {...pageProps}
+          addToCart={addToCart}
+          cart={cart}
+          removeFromCart={removeFromCart}
+          clearCart={clearCart}
+          subTotal={subTotal} />
 
-      <Footer />
+        <Footer />
       </Provider>
     </main>
   </>

@@ -2,20 +2,85 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect} from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { productlist } from '../store/productListSilce'
 import BannerList from '../components/BannerList'
+import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const dispatch = useDispatch()
-  const data = useSelector((state) => state.product)
-  
+  const dataproduct = useSelector((state) => state.product)
+  const [data, setData] = useState([])
+  const [currentPage, SetCurrentpage] = useState(1)
+  console.log("currentPage",currentPage)
+  const [itemPerPage, SetItemPerPage] = useState(4)
+  console.log("itemPerPage>>>",itemPerPage)
+  const [pageNumberLimit, SetPageNumberLimit] = useState(5)
+  console.log("pageNumberLimit", pageNumberLimit)
+  const [maxPageNumberLimit, SetMaxpageNumberLimit] = useState(8)
+  console.log("maxPageNumberLimit>>>", maxPageNumberLimit)
+  const [minPageumberLimit, SetMinPageNumberLimit] = useState(0)
+  // console.log("minPageumberLimit>>>", minPageumberLimit)
+
+  const handleClick = (e) => {
+    SetCurrentpage(e.target.id)
+  }
+  const dataLength = data?.length;
+  const page = [];
+  for (let i = 1; i <= Math.ceil(dataLength / itemPerPage); i++) {
+    page.push(i)
+  }
+
+  const indexOfLastItem = currentPage * itemPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemPerPage;
+  const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem)
+  console.log("currentItems", currentItems)
+
+  const renderPageNumber = page.map((number) => {
+    if (number < maxPageNumberLimit + 1 && number > minPageumberLimit) {
+      return (
+        <li key={number}
+          id={number}
+          onClick={handleClick}
+          className={currentPage == number ? 'active' : null}
+        >
+          {number}
+        </li>
+      )
+    }
+    else {
+      return null
+    }
+  })
+
+  const handlePrevbtn = () => {
+    SetCurrentpage(currentPage - 1)
+    if ((currentPage - 1) % pageNumberLimit == 0) {
+      SetMaxpageNumberLimit(maxPageNumberLimit - pageNumberLimit)
+      SetMinPageNumberLimit(minPageumberLimit - pageNumberLimit)
+
+    }
+  }
+
+  const handleNextbtn = () => {
+    SetCurrentpage(currentPage + 1);
+
+    if (currentPage + 1 > maxPageNumberLimit) {
+      SetMaxpageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      SetMinPageNumberLimit(minPageumberLimit + pageNumberLimit);
+    }
+  }
+
   useEffect(() => {
     dispatch(productlist())
   }, [])
+
+  useEffect(() => {
+    setData(dataproduct.products)
+  }, [dataproduct])
 
   return (
     <>
@@ -25,22 +90,20 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <div>
-    
         <BannerList />
+
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">
-
             <div className="flex flex-wrap -m-4 justify-center">
+
               {
-                data?.products?.slice(0, 20).map((ele, index) => {
-                  // console.log("ele>>>>>>>>>", ele)
+                currentItems?.slice(0, 20).map((ele, index) => {
+
                   return (
                     <Link href={`/products/${ele.id}`} legacyBehavior key={index}>
                       <div className="lg:w-1/5 md:w-1/2 p-4 w-full cursor-pointer shadow-lg m-5">
                         <a className="block relative  rounded overflow-hidden">
-                          {/* <img alt="ecommerce" className=" m-auto md:mx-0 h-[30vh] md:h-[36vh] block" src="https://rukminim1.flixcart.com/image/832/832/l1grgcw0/t-shirt/x/o/5/m-t428hs-tm5p-eyebogler-original-imagdf2egzjxeqgk.jpeg?q=70" /> */}
                           <Image src={ele.images[0]} alt="image-alt" className=" m-auto md:mx-0 h-[30vh] md:h-[36vh] block" width="500" height='500'></Image>
                         </a>
                         <div className="mt-4 text-center md:text-left">
@@ -55,18 +118,21 @@ export default function Home() {
                 })
               }
             </div>
+
           </div>
         </section>
-        <ul className='flex'>
+
+        <ul className='flex space-x-2 items-center '>
           <li>
-            <button>Prev</button>
+            <button onClick={handlePrevbtn}>Prev</button>
           </li>
+          {renderPageNumber}
           <li>
-            <button>Next</button>
+            <button onClick={handleNextbtn}>Next</button>
           </li>
         </ul>
         <section className="text-gray-600 body-font">
-          
+
 
           <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">

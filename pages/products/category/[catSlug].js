@@ -8,7 +8,7 @@ import { categoryList } from "../../../store/productCategorySlice"
 const CatSlug = () => {
     const router = useRouter()
     const name = router.query
-    console.log("name>>>>", name.catSlug)
+    // console.log("name>>>>", name.catSlug)
     const dispatch = useDispatch()
 
     const catData=useSelector((state)=>state.categories)

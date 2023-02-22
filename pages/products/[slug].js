@@ -25,7 +25,7 @@ const Slug = ({ addToCart }) => {
 
   const checkavailability = async () => {
     let pins = await fetch('http://localhost:3000/api/pincode')
-    console.log("pins")
+    // console.log("pins")
     let pinData = await pins.json()
     if (pinData.includes(parseInt(pin))) {
       setService(true)

@@ -11,15 +11,14 @@ const Header = () => {
     // console.log("brandData>>>", brandData)
     const allData = useSelector((state) => state.product)
     // console.log("allData>>>", allData)
-
     let categoriesData = allData.products?.map((data) => data.category)// Category list
-
     let uniqueCategories = [];
     categoriesData?.forEach((category) => {
         if (!uniqueCategories.includes(category)) {
             uniqueCategories.push(category);
         }
     });
+    
     // Brand List
     let brandList = allData.products?.map((ele) => ele.brand)
     // console.log("brandList>>>", brandList)
