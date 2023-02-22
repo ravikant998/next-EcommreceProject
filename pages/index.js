@@ -15,9 +15,9 @@ export default function Home() {
   const dataproduct = useSelector((state) => state.product)
   const [data, setData] = useState([])
   const [currentPage, SetCurrentpage] = useState(1)
-  console.log("currentPage",currentPage)
+  console.log("currentPage", currentPage)
   const [itemPerPage, SetItemPerPage] = useState(4)
-  console.log("itemPerPage>>>",itemPerPage)
+  console.log("itemPerPage>>>", itemPerPage)
   const [pageNumberLimit, SetPageNumberLimit] = useState(5)
   console.log("pageNumberLimit", pageNumberLimit)
   const [maxPageNumberLimit, SetMaxpageNumberLimit] = useState(8)
@@ -122,7 +122,7 @@ export default function Home() {
           </div>
         </section>
 
-        <ul className='flex space-x-2 items-center '>
+        <ul className='flex space-x-2 items-center mx-9'>
           <li>
             <button onClick={handlePrevbtn}>Prev</button>
           </li>
