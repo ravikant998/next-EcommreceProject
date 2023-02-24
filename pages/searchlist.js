@@ -12,10 +12,10 @@ const searchlist = () => {
  let searchdata=router.query
 //  console.log("searchdata>>>",searchdata.search)
 let filterdata=searchdata.search
- console.log("filterdata>>>",filterdata)
+//  console.log("filterdata>>>",filterdata)
 
  let data = useSelector((state) => state.searchdata)
-console.log("data>>>",data)
+// console.log("data>>>",data)
 
 useEffect(() => {
 

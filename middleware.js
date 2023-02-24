@@ -7,5 +7,7 @@ import { NextResponse } from "next/server";
     if(!varify && url.includes("/checkout")){
         return NextResponse.redirect("http://localhost:3000/")
     }
+    
+
    
 }

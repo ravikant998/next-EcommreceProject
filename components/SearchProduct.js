@@ -4,31 +4,33 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchProduct } from '../store/searchProductSlice'
 
-
 const SearchProduct = () => {
     const router = useRouter()
     const dispatch = useDispatch()
     const [searchInput, setSearchInput] = useState('')
-    // console.log("searchInput>>>", searchInput)
+    const [listproduct, SetListproduct] = useState()
     let data = useSelector((state) => state.searchdata)
-    // console.log("data>>>", data)
 
     const handleChange = (e) => {
         e.preventDefault();
-        setSearchInput(e.target.value);
+        setSearchInput(e.target.value); 
     };
-
+    
     useEffect(() => {
         if (searchInput.length > 1)
             dispatch(searchProduct(searchInput))
+            SetListproduct(data)
     }, [searchInput])
 
     const onhandlerSubmit = (e) => {
         e.preventDefault()
         router.push(`/searchlist?search=${searchInput}`)
-        
+        SetListproduct(false)
     }
+    // useEffect(() => {
+       
 
+    // },)
     return (
         <div>
             <div className='mx-10 ' >
@@ -43,9 +45,8 @@ const SearchProduct = () => {
                 </form>
             </div>
             {
-                searchInput.length > 1 && data.products?.map((items, index) => {
+                searchInput.length > 1 && listproduct.products?.map((items, index) => {
                     // console.log("items",items)
-
                     return (
                         <div key={index}>
                             <ul>
@@ -54,17 +55,11 @@ const SearchProduct = () => {
                                         {items.title}
                                     </Link>
                                 </li>
-
-                            </ul>
-                            {/* <Link >
-                                
-                            </Link> */}
+                            </ul>                   
                         </div>
-
                     )
                 })
             }
-
         </div>
     )
 }

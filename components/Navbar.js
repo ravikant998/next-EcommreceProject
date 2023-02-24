@@ -30,8 +30,6 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
     }
   })
   const ref = useRef()
-
-
   const logouthandler = () => {
     Cookies.remove("loggedin");
     localStorage.removeItem('login')
@@ -48,16 +46,12 @@ const Navbar = ({ addToCart, cart, removeFromCart, clearCart, subTotal }) => {
       <div className='nav'>
     
         <ul className="absolute top-5 text-black  text-center w-full font-bold">
-
           <SearchProduct />
-       
         </ul>
       </div>
-
       <div className=" cursor-pointer cart absolute right-0 top-4 mx-5 flex">
         {
           !status ? (
-
 
             <Link href={'/login'}><MdAccountCircle className="text-xl md:text-2xl mx-3" /></Link>
           ) : 

@@ -1,31 +1,39 @@
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 const Category = ({ data }) => {
     let catdata = data;
+    const [catlist, SetCatList] = useState([])
+    console.log("catlist>>>", catlist)
+    useEffect(() => {
+        SetCatList(catdata)
+    }, [])
 
-    useEffect(()=>{
-        
-    })
+    const onClikHandler=()=>{
+       
+    }
     return (
         <>
-            <h1>Show by Category</h1>
-            <div className='space-x-2 flex'>
-                {
-                    catdata?.map((categoryname, index) => {
-                        return (
-                            <div key={index}>
-                                <Link href={`/products/category/${categoryname}`}>
-                                    <ul>
-                                        <li>
-                                            {categoryname.toUpperCase()}
-                                        </li>
-                                    </ul>
-                                </Link>
-                            </div>
-                        )
-                    })
-                }
+            <div>
+                <h1>Show by Category</h1>
+                <div className='space-x-2 flex'>
+                    {
+                        catlist?.map((categoryname, index) => {
+                            return (
+                                <div key={index}>
+                                    <Link href={`/products/category/${categoryname}`}  >
+                                        <ul>
+                                            <li >
+                                                {categoryname.toUpperCase()}
+                                            </li>
+                                        </ul>
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
+
         </>
     )
 }
