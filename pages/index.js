@@ -13,17 +13,20 @@ export default function Home() {
   const dispatch = useDispatch()
   const dataproduct = useSelector((state) => state.product)
   const [data, setData] = useState([])
+  const [currentPage, SetCurrentpage] = useState(1)
+  console.log("currentPage", currentPage)
+  const [itemPerPage, SetItemPerPage] = useState(4)
+  console.log("itemPerPage>>>", itemPerPage)
+  const [pageNumberLimit, SetPageNumberLimit] = useState(5)
+  console.log("pageNumberLimit", pageNumberLimit)
+  const [maxPageNumberLimit, SetMaxpageNumberLimit] = useState(8)
+  console.log("maxPageNumberLimit>>>", maxPageNumberLimit)
+  const [minPageumberLimit, SetMinPageNumberLimit] = useState(0)
+  // console.log("minPageumberLimit>>>", minPageumberLimit)
 
-  const [currentPage, setcurrentPage] = useState(1);
-  const [itemsPerPage, setitemsPerPage] = useState(8);
-
-  const [pageNumberLimit, setpageNumberLimit] = useState(4);
-  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(4);
-  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
-
-  const handleClick = (event) => {
-    setcurrentPage(Number(event.target.id));
-  };
+  const handleClick = (e) => {
+    SetCurrentpage(e.target.id)
+  }
   const dataLength = data?.length;
 
   const pages = [];

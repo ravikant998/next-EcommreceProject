@@ -37,10 +37,23 @@ const schema = yup.object().shape({
 })
 
 const Signup = () => {
+
   const router = useRouter()
   // const dispatch = useDispatch()
   let attachmentfile = useRef(null);
+  const [user, setUser] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    password: ''
+  })
 
+  let name, value;
+  const getUserData = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setUser({ ...user, [name]: value })
+  }
   const {
     register,
     handleSubmit,
@@ -49,13 +62,27 @@ const Signup = () => {
     resolver: yupResolver(schema),
   });
 
-  const submithnadler = (data) => {
-    console.log("dTA", data)
-    // dispatch(signupuser(data)
-   
+  const submithnadler = async (data) => {
+    const { name, phone, email, password } = user;
 
-    let signinData = JSON.parse(localStorage.getItem("signup")) || [];
-    localStorage.setItem("signup", JSON.stringify([...signinData, { id: signinData.length + 1, ...data }]))
+    const response = await fetch('https://fir-ecommerce-project-5e7c7-default-rtdb.firebaseio.com/signupform.json', {
+      method: 'POST',
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        phone,
+        email,
+        password
+      })
+    })
+    console.log("response>>>", response)
+    // dispatch(signupuser(data)
+
+    // localStorage
+    // let signinData = JSON.parse(localStorage.getItem("signup")) || [];
+    // localStorage.setItem("signup", JSON.stringify([...signinData, { id: signinData.length + 1, ...data }]))
 
     router.push('/login')
   }
