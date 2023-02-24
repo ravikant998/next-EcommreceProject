@@ -9,11 +9,11 @@ import { categoryList } from "../store/productCategorySlice"
 const CategoryByListing = () => {
   const router=useRouter()
   const slug=router.query
-  console.log("id>>>>",slug)
+  // console.log("id>>>>",slug)
   const dispatch = useDispatch()
 
   const catListing = useSelector((state) => state.categories)
-  console.log("listinf>>>>>>>", catListing)
+
   useEffect(() => {
     dispatch(categoryList(slug))
   }, [])

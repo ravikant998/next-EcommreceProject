@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
 
 const schema = yup.object().shape({
@@ -39,7 +38,6 @@ const schema = yup.object().shape({
 const Signup = () => {
 
   const router = useRouter()
-  // const dispatch = useDispatch()
   let attachmentfile = useRef(null);
   const [user, setUser] = useState({
     name: '',
