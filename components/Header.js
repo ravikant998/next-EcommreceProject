@@ -18,7 +18,7 @@ const Header = () => {
             uniqueCategories.push(category);
         }
     });
-    
+
     // Brand List
     let brandList = allData.products?.map((ele) => ele.brand)
     // console.log("brandList>>>", brandList)
@@ -33,7 +33,6 @@ const Header = () => {
         setShowCategory(uniqueCategories)
         setBrandData(uniqueBrand)
     }, [allData])
-    // 
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')

@@ -5,7 +5,6 @@ import { proCategory } from "../pages/api/endpoints";
 
 const initialState = []
 export const categoryList = createAsyncThunk('categories', async (name) => {
-    console.log("catnamecatnamecatname",name)
     const response = await Api.get(`${proCategory}/${name}`).then((res) => {
         // console.log("res>>>>",res)
         return res.data

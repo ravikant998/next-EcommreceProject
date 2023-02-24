@@ -1,43 +1,31 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router';
+import { useEffect } from 'react'
+const Category = ({ data }) => {
+    let catdata = data;
 
-import {  useSelector } from 'react-redux'
-
-const Category = ({data}) => {
-let catdata=data
-// console.log("catdata",catdata)
-
+    useEffect(()=>{
+        
+    })
     return (
         <>
-        <h1>Show by Category</h1>
-        <div className='space-x-2 flex'>
-           
-           
-            {
-                catdata?.map((categoryname, index) => {
-                  
-
-                    return (
-                        <div key={index}>
-                            <Link href={`/products/category/${categoryname}`}>
-
-                                <ul>
-                                    <li>
-                                        {categoryname.toUpperCase()}
+            <h1>Show by Category</h1>
+            <div className='space-x-2 flex'>
+                {
+                    catdata?.map((categoryname, index) => {
+                        return (
+                            <div key={index}>
+                                <Link href={`/products/category/${categoryname}`}>
+                                    <ul>
+                                        <li>
+                                            {categoryname.toUpperCase()}
                                         </li>
-
-                                </ul>
-                            </Link>
-                        </div>
-
-                    )
-
-                })
-            }
-
-          
-           
-        </div>
+                                    </ul>
+                                </Link>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </>
     )
 }
