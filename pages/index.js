@@ -30,16 +30,16 @@ export default function Home() {
   const dataLength = data?.length;
 
   const pages = [];
-  for (let i = 1; i <= Math.ceil(dataLength / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(dataLength / itemPerPage); i++) {
     pages.push(i);
   }
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const indexOfLastItem = currentPage * itemPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemPerPage;
   const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
 
   const renderPageNumbers = pages.map((number) => {
-    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+    if (number < maxPageNumberLimit + 1 && number > minPageumberLimit) {
       return (
         <li
           key={number}
@@ -84,20 +84,20 @@ export default function Home() {
   // },[])
 
   const handleNextbtn = () => {
-    setcurrentPage(currentPage + 1);
+    SetCurrentpage(currentPage + 1);
 
     if (currentPage + 1 > maxPageNumberLimit) {
-      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+      SetMaxpageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      SetMinPageNumberLimit(minPageumberLimit + pageNumberLimit);
     }
   };
 
   const handlePrevbtn = () => {
-    setcurrentPage(currentPage - 1);
+    SetCurrentpage(currentPage - 1);
 
     if ((currentPage - 1) % pageNumberLimit == 0) {
-      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+      SetMaxpageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      SetMinPageNumberLimit(minPageumberLimit - pageNumberLimit);
     }
   };
 
@@ -107,12 +107,12 @@ export default function Home() {
   }
 
   let pageDecrementBtn = null;
-  if (minPageNumberLimit >= 1) {
+  if (minPageumberLimit >= 1) {
     pageDecrementBtn = <li onClick={handlePrevbtn}> &hellip; </li>;
   }
 
   const handleLoadMore = () => {
-    setitemsPerPage(itemsPerPage + 4);
+    SetCurrentpage(itemPerPage + 4);
   };
 
   return (
@@ -170,7 +170,6 @@ export default function Home() {
           </li>
         </ul>
         <button onClick={handleLoadMore} className='ml-96 text-blue-400'>Load More</button>
-
 
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">

@@ -79,10 +79,9 @@ const Signup = () => {
     })
     console.log("response>>>", response)
     // dispatch(signupuser(data)
-
-    // localStorage
-    // let signinData = JSON.parse(localStorage.getItem("signup")) || [];
-    // localStorage.setItem("signup", JSON.stringify([...signinData, { id: signinData.length + 1, ...data }]))
+    localStorage
+    let signinData = JSON.parse(localStorage.getItem("signup")) || [];
+    localStorage.setItem("signup", JSON.stringify([...signinData, { id: signinData.length + 1, ...data }]))
 
     router.push('/login')
   }
