@@ -27,10 +27,7 @@ const SearchProduct = () => {
         router.push(`/searchlist?search=${searchInput}`)
         SetListproduct(false)
     }
-    // useEffect(() => {
-       
-
-    // },)
+    
     return (
         <div>
             <div className='mx-10 ' >

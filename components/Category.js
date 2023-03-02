@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 const Category = ({ data }) => {
     let catdata = data;
     const [catlist, SetCatList] = useState([])
-    console.log("catlist>>>", catlist)
+    // console.log("catlist>>>", catlist)
     useEffect(() => {
         SetCatList(catdata)
     }, [])

@@ -10,12 +10,10 @@ const CatSlug = () => {
     const name = router.query
     // console.log("name>>>>", name.catSlug)
     const dispatch = useDispatch()
-
     const catData=useSelector((state)=>state.categories)
     // console.log("catData",catData)
 
     useEffect(() => {
-
         dispatch(categoryList(name.catSlug))
     }, [name])
 

@@ -6,29 +6,27 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { productlist } from '../store/productListSilce'
 import BannerList from '../components/BannerList'
+import { paginationAction } from '../store/paginationSlice'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const dispatch = useDispatch()
   const dataproduct = useSelector((state) => state.product)
+ 
   const [data, setData] = useState([])
   const [currentPage, SetCurrentpage] = useState(1)
-  // console.log("currentPage", currentPage)
   const [itemPerPage, SetItemPerPage] = useState(8)
-  // console.log("itemPerPage>>>", itemPerPage)
   const [pageNumberLimit, SetPageNumberLimit] = useState(5)
-  // console.log("pageNumberLimit", pageNumberLimit)
   const [maxPageNumberLimit, SetMaxpageNumberLimit] = useState(8)
-  // console.log("maxPageNumberLimit>>>", maxPageNumberLimit)
   const [minPageumberLimit, SetMinPageNumberLimit] = useState(0)
-  // console.log("minPageumberLimit>>>", minPageumberLimit)
+  const [pagination, setPagination] = useState('')
+  // console.log("pagination>>>", pagination)
 
   const handleClick = (e) => {
     SetCurrentpage(e.target.id)
   }
   const dataLength = data?.length;
-
   const pages = [];
   for (let i = 1; i <= Math.ceil(dataLength / itemPerPage); i++) {
     pages.push(i);
@@ -57,6 +55,10 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(productlist())
+
+  }, [])
+  useEffect(() => {
+    dispatch(paginationAction(setPagination))
   }, [])
 
   useEffect(() => {
